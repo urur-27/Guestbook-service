@@ -1,7 +1,10 @@
 name: AWS Connection Test
 
 on:
+  push:
+    branches: [ main ]
   workflow_dispatch:
+
 
 jobs:
   test-aws-connection:
@@ -60,21 +63,3 @@ jobs:
         run: |
           docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
           docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:latest
-
-
-
-
-
-
-steps:
-  - name: Test secrets
-    run: |
-      if [ -z "${{ secrets.AWS_DEPLOY_ACCESS_KEY_ID }}" ]; then
-        echo "AWS_DEPLOY_ACCESS_KEY_ID is not set"
-        exit 1
-      else
-        echo "AWS_DEPLOY_ACCESS_KEY_ID is correctly set"
-      fi
-      
-      # 다른 시크릿도 동일하게 테스트
-      # 시크릿 값 자체를 출력하지 않도록 주의
