@@ -31,6 +31,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      #gradle 권한 부여
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
       - name: Build with Gradle
         run: ./gradlew build
 
